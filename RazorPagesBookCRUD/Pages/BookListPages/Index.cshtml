@@ -1,0 +1,62 @@
+﻿@page
+@model RazorPagesBookCRUD.Pages.BookListPages.IndexModel
+
+<br />
+
+<div class="container row p-0 m-0">
+    <div class="col-10">
+        <h2 class="text-info"> Book List </h2>
+    </div>
+    <div class="col-2">
+        <a asp-page="Create" class="btn btn-info form-control text-right"> Create New Book </a>
+    </div>
+
+
+    <div class="col-12 border p-3 mt-3">
+        <form method="post">
+            @if(Model.Books.Count()>0)
+            {
+            <table class="table table-striped border">
+                <tr class="table-secondary">
+                    <th>
+                        <!-- <label asp-for="Books.FirstOrDefault().name"></label> -->
+                        <p>Name</p>
+                    </th>
+                    <th>
+                        <label asp-for="Books.FirstOrDefault().Author"></label>
+                    </th>
+                    <th>
+                        <label asp-for="Books.FirstOrDefault().ISBN"></label>
+                    </th>
+                    <th>
+
+                    </th>
+                </tr>
+                @foreach (var book in Model.Books)
+                {
+            <tr>
+                <td>
+                   @book.name
+                </td>
+                <td>
+                    @Html.DisplayFor(m => book.Author)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => book.ISBN)
+                </td>
+                <td>
+                    <button onclick="return confirm('Are you sure you want to delete?')" asp-page-handler="Delete" asp-route-id="@book.ID" class="btn btn-danger btn-sm"> DELETE </button>
+                    <a asp-page="Edit" asp-route-id="@book.ID" class="btn btn-success btn-sm">EDIT</a>                      
+                </td>
+            </tr>
+                }
+            </table>
+            }
+            else
+            {
+            <p> No books available</p>
+            }
+        </form>
+    </div>
+</div>
+
